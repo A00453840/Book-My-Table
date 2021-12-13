@@ -4,14 +4,16 @@ using Book_My_Table.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Book_My_Table.Migrations
 {
     [DbContext(typeof(CustomerReg))]
-    partial class CustomerRegModelSnapshot : ModelSnapshot
+    [Migration("20211213051245_Migration1")]
+    partial class Migration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,52 +94,6 @@ namespace Book_My_Table.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("CustomerRegistration");
-                });
-
-            modelBuilder.Entity("Book_My_Table.Models.Restaurant", b =>
-                {
-                    b.Property<int>("RestaurantId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ClosingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OpeningTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RestaurantId");
-
-                    b.HasIndex("BookingId");
-
-                    b.ToTable("Restaurant");
-                });
-
-            modelBuilder.Entity("Book_My_Table.Models.Restaurant", b =>
-                {
-                    b.HasOne("Book_My_Table.Models.Booking", "Booking")
-                        .WithMany("Restaurants")
-                        .HasForeignKey("BookingId");
-
-                    b.Navigation("Booking");
-                });
-
-            modelBuilder.Entity("Book_My_Table.Models.Booking", b =>
-                {
-                    b.Navigation("Restaurants");
                 });
 #pragma warning restore 612, 618
         }

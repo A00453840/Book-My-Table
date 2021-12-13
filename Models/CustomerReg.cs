@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Book_My_Table.Models;
 
 namespace Book_My_Table.Models
 {
@@ -13,6 +14,8 @@ namespace Book_My_Table.Models
 
         }
         public DbSet<Customer> CustomerRegistration { get; set; }
+        public DbSet<Book_My_Table.Models.Booking> Booking { get; set; }
+        public DbSet<Book_My_Table.Models.Restaurant> Restaurant { get; set; }
     }
     
 }
