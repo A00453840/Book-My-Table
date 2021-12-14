@@ -4,26 +4,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Bookings</h1>
+<h1>My Bookings</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.RestaurantId)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.CustomerId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.CustomerName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.CustomerAddress)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
@@ -43,41 +43,42 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RestaurantId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Noofpeople)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MealId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookingId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookingId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantId)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.CustomerAddress)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Noofpeople)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MealId)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.BookingId">Details</a> |*@
+                    <a asp-action="Delete" asp-route-id="@item.BookingId">Cancel Booking</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

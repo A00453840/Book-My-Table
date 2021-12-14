@@ -6,22 +6,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Book_My_Table.Models;
+using System.Security.Claims;
+using Book_My_Table.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Book_My_Table.Controllers
 {
+    [Authorize]
     public class BookingsController : Controller
     {
+        private UserManager<Book_My_TableUser> _userManager;
         private readonly CustomerReg _context;
 
-        public BookingsController(CustomerReg context)
+        public BookingsController(CustomerReg context, UserManager<Book_My_TableUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Booking.ToListAsync());
+            var userDetails = await _userManager.GetUserAsync(User);
+            var bookings = from s in _context.Booking
+                              select s;
+            if (!String.IsNullOrEmpty(userDetails.Id))
+            {
+                bookings = bookings.Where(s => s.CustomerId.Contains(userDetails.Id));
+            }
+            return View(await bookings.AsNoTracking().ToListAsync());
+
+            //return View(await _context.Booking.ToListAsync());
         }
 
         // GET: Bookings/Details/5
@@ -55,9 +71,12 @@ namespace Book_My_Table.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int id,[Bind("CustomerId,CustomerName,CustomerAddress,Date,Time,Noofpeople,ContactNo,MealId")] Booking booking)
         {
-            Console.WriteLine("Restaurant ID = ", id);
+           
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                booking.CustomerId = user.Id;
+
                 booking.RestaurantId = id;
                 _context.Add(booking);
                 await _context.SaveChangesAsync();

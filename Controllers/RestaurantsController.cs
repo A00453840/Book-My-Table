@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Book_My_Table.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Book_My_Table.Controllers
 {
+    [Authorize]
     public class RestaurantsController : Controller
     {
         private readonly CustomerReg _context;
@@ -17,11 +19,17 @@ namespace Book_My_Table.Controllers
         {
             _context = context;
         }
-
+        [AllowAnonymous]
         // GET: Restaurants
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Restaurant.ToListAsync());
+            var restaurants = from s in _context.Restaurant
+                              select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                restaurants = restaurants.Where(s => s.Address.Contains(searchString));
+            }
+            return View(await restaurants.AsNoTracking().ToListAsync());
         }
 
         // GET: Restaurants/Details/5

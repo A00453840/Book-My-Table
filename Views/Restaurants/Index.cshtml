@@ -6,9 +6,26 @@
 
 <h1>Restaurants</h1>
 
-<p>
+<@*p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Enter your location: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+        @*@section Scripts
+            {
+                <script>
+                $('form input').change(function() {
+                $(this).closest('form').submit();
+                });
+                </script>
+            }*@
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>

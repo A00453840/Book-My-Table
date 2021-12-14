@@ -12,7 +12,7 @@ namespace Book_My_Table.Models
         public int BookingId { get; set; }
 
         public int RestaurantId { get; set; }
-        public int CustomerId { get; set; }
+        public String CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
 

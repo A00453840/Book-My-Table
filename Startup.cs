@@ -26,6 +26,7 @@ namespace Book_My_Table
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddDbContext<CustomerReg>(item => item.UseSqlServer(Configuration.GetConnectionString("WebApplication1ContextConnection")));
         }
 
@@ -47,6 +48,7 @@ namespace Book_My_Table
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -54,6 +56,7 @@ namespace Book_My_Table
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
