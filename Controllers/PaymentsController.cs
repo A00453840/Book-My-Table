@@ -5,42 +5,39 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Book_My_Table.Models;
-using System.Security.Claims;
-using Book_My_Table.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
+using Book_My_Table.Models;
+using Book_My_Table.Areas.Identity.Data;
 
 namespace Book_My_Table.Controllers
 {
-    [Authorize]
-    public class BookingsController : Controller
+    public class PaymentsController : Controller
     {
-        private UserManager<Book_My_TableUser> _userManager;
         private readonly CustomerReg _context;
+        private UserManager<Book_My_TableUser> _userManager;
 
-        public BookingsController(CustomerReg context, UserManager<Book_My_TableUser> userManager)
+        public PaymentsController(CustomerReg context, UserManager<Book_My_TableUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        // GET: Bookings
+        // GET: Payments
         public async Task<IActionResult> Index()
         {
-            var userDetails = await _userManager.GetUserAsync(User);
-            var bookings = from s in _context.Booking
+            var user = await _userManager.GetUserAsync(User);
+            string userId = user.Id;
+            var payments = from s in _context.Payment
                               select s;
-            if (!String.IsNullOrEmpty(userDetails.Id))
+            if (!String.IsNullOrEmpty(userId))
             {
-                bookings = bookings.Where(s => s.CustomerId.Contains(userDetails.Id));
+                payments = payments.Where(s => s.CustomerId.Contains(userId));
             }
-            return View(await bookings.AsNoTracking().ToListAsync());
-
-            //return View(await _context.Booking.ToListAsync());
+            return View(await payments.AsNoTracking().ToListAsync());
+            //return View(await _context.Payment.ToListAsync());
         }
 
-        // GET: Bookings/Details/5
+        // GET: Payments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,44 +45,45 @@ namespace Book_My_Table.Controllers
                 return NotFound();
             }
 
-            var booking = await _context.Booking
-                .FirstOrDefaultAsync(m => m.BookingId == id);
-            if (booking == null)
+            var payment = await _context.Payment
+                .FirstOrDefaultAsync(m => m.PaymentId == id);
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            return View(booking);
+            return View(payment);
         }
 
-        // GET: Bookings/Create
-        public IActionResult Create(int? id)
+        // GET: Payments/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Bookings/Create
+        // POST: Payments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id,[Bind("CustomerId,CustomerName,Date,Time,Noofpeople,ContactNo,MealId")] Booking booking)
+        public async Task<IActionResult> Create(int cardId, int bookingId,[Bind("Amount")] Payment payment)
         {
-           
             if (ModelState.IsValid)
+
             {
                 var user = await _userManager.GetUserAsync(User);
-                booking.CustomerId = user.Id;
-
-                booking.RestaurantId = id;
-                _context.Add(booking);
+                payment.CustomerId = user.Id;
+                payment.BookingId = bookingId;
+                payment.TransactionDate = DateTime.Now;
+                payment.PaymentType = "Credit Card";
+                _context.Add(payment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(booking);
+            return View(payment);
         }
 
-        // GET: Bookings/Edit/5
+        // GET: Payments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,22 +91,22 @@ namespace Book_My_Table.Controllers
                 return NotFound();
             }
 
-            var booking = await _context.Booking.FindAsync(id);
-            if (booking == null)
+            var payment = await _context.Payment.FindAsync(id);
+            if (payment == null)
             {
                 return NotFound();
             }
-            return View(booking);
+            return View(payment);
         }
 
-        // POST: Bookings/Edit/5
+        // POST: Payments/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingId,RestaurantId,CustomerId,CustomerName,CustomerAddress,Date,Time,Noofpeople,ContactNo,MealId,Status")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,BookingId,CustomerId,Amount,TransactionDate,PaymentType")] Payment payment)
         {
-            if (id != booking.BookingId)
+            if (id != payment.PaymentId)
             {
                 return NotFound();
             }
@@ -117,12 +115,12 @@ namespace Book_My_Table.Controllers
             {
                 try
                 {
-                    _context.Update(booking);
+                    _context.Update(payment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookingExists(booking.BookingId))
+                    if (!PaymentExists(payment.PaymentId))
                     {
                         return NotFound();
                     }
@@ -133,10 +131,10 @@ namespace Book_My_Table.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(booking);
+            return View(payment);
         }
 
-        // GET: Bookings/Delete/5
+        // GET: Payments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,30 +142,30 @@ namespace Book_My_Table.Controllers
                 return NotFound();
             }
 
-            var booking = await _context.Booking
-                .FirstOrDefaultAsync(m => m.BookingId == id);
-            if (booking == null)
+            var payment = await _context.Payment
+                .FirstOrDefaultAsync(m => m.PaymentId == id);
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            return View(booking);
+            return View(payment);
         }
 
-        // POST: Bookings/Delete/5
+        // POST: Payments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var booking = await _context.Booking.FindAsync(id);
-            _context.Booking.Remove(booking);
+            var payment = await _context.Payment.FindAsync(id);
+            _context.Payment.Remove(payment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BookingExists(int id)
+        private bool PaymentExists(int id)
         {
-            return _context.Booking.Any(e => e.BookingId == id);
+            return _context.Payment.Any(e => e.PaymentId == id);
         }
     }
 }

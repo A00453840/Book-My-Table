@@ -13,17 +13,20 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.BookingId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.RestaurantId)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.CustomerId)
-            </th>*@
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.CustomerName)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.CustomerAddress)
-            </th>*@
+            @Html.DisplayNameFor(model => model.CustomerAddress)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
@@ -36,8 +39,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.ContactNo)
             </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.MealId)
+        </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.MealId)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
         </tr>
@@ -45,40 +51,47 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RestaurantId)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.CustomerId)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.CustomerAddress)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Noofpeople)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MealId)
-                </td>
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.BookingId">Details</a> |*@
-                    <a asp-action="Delete" asp-route-id="@item.BookingId">Cancel Booking</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantId)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.CustomerId)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.CustomerAddress)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Noofpeople)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNo)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.MealId)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |*@
+                @*<a asp-action="Details" asp-route-id="@item.BookingId">Details</a> |*@
+                <a asp-controller="SavedCards" asp-action="Create" asp-route-id="@item.BookingId">Make Payment</a> |
+                <a asp-action="Delete" asp-route-id="@item.BookingId">Cancel Booking</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

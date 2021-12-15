@@ -1,0 +1,60 @@
+﻿@model Book_My_Table.Models.SavedCard
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>SavedCard</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CardType" class="control-label"></label><br />
+                @*<input type="radio" asp-for="CardType" class="form-control" />*@
+                Visa <input type="radio" name="CardType" value="Visa" />
+                Master Card <input type="radio" name="CardType" value="Master Card" />
+                Amex <input type="radio" name="CardType" value="Amex" />
+                <span asp-validation-for="CardType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CardNumber" class="control-label"></label>
+                <input asp-for="CardNumber" class="form-control" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpiryDate" class="control-label"></label>
+                <input asp-for="ExpiryDate" class="form-control" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CVV" class="control-label"></label>
+                <input asp-for="CVV" class="form-control" />
+                <span asp-validation-for="CVV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <label asp-for="NameOnCard" class="control-label"></label>
+            <input asp-for="NameOnCard" class="form-control" />
+            <span asp-validation-for="NameOnCard" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+               @* <a asp-controller="Payments" asp-action="Create">*@
+                    <input type="submit" value="Add card and Proceed to payment" class="btn btn-primary" />
+                    
+                @*</a>*@
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

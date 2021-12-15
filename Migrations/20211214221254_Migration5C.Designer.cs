@@ -4,14 +4,16 @@ using Book_My_Table.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Book_My_Table.Migrations
 {
     [DbContext(typeof(CustomerReg))]
-    partial class CustomerRegModelSnapshot : ModelSnapshot
+    [Migration("20211214221254_Migration5C")]
+    partial class Migration5C
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +48,6 @@ namespace Book_My_Table.Migrations
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
@@ -160,24 +159,17 @@ namespace Book_My_Table.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CVV")
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                    b.Property<int>("CVV")
+                        .HasColumnType("int");
 
                     b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ExpiryDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameOnCard")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CardId");
 

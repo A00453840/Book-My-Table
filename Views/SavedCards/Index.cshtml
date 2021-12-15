@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Book_My_Table.Models.SavedCard>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //int bookingId = ViewBag.Message;
+}
+
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpiryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CVV)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.CustomerId)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpiryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CVV)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    </td>*@
+                <td>
+                    <a asp-controller="Payments" asp-action="Create" asp-route-id="@item.CardId">Use this card for payment</a> |
+                    @*<a asp-action="Details" asp-route-id="@item.CardId">Details</a> |*@
+                    <a asp-action="Delete" asp-route-id="@item.CardId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

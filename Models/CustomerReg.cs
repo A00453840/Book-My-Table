@@ -16,6 +16,8 @@ namespace Book_My_Table.Models
         public DbSet<Customer> CustomerRegistration { get; set; }
         public DbSet<Book_My_Table.Models.Booking> Booking { get; set; }
         public DbSet<Book_My_Table.Models.Restaurant> Restaurant { get; set; }
+        public DbSet<Book_My_Table.Models.Payment> Payment { get; set; }
+        public DbSet<Book_My_Table.Models.SavedCard> SavedCard { get; set; }
     }
     
 }

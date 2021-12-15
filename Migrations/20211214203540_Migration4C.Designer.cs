@@ -4,14 +4,16 @@ using Book_My_Table.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Book_My_Table.Migrations
 {
     [DbContext(typeof(CustomerReg))]
-    partial class CustomerRegModelSnapshot : ModelSnapshot
+    [Migration("20211214203540_Migration4C")]
+    partial class Migration4C
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +48,6 @@ namespace Book_My_Table.Migrations
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
@@ -94,33 +93,6 @@ namespace Book_My_Table.Migrations
                     b.ToTable("CustomerRegistration");
                 });
 
-            modelBuilder.Entity("Book_My_Table.Models.Payment", b =>
-                {
-                    b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("Amount")
-                        .HasColumnType("real");
-
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PaymentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TransactionDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("PaymentId");
-
-                    b.ToTable("Payment");
-                });
-
             modelBuilder.Entity("Book_My_Table.Models.Restaurant", b =>
                 {
                     b.Property<int>("RestaurantId")
@@ -151,37 +123,6 @@ namespace Book_My_Table.Migrations
                     b.HasIndex("BookingId");
 
                     b.ToTable("Restaurant");
-                });
-
-            modelBuilder.Entity("Book_My_Table.Models.SavedCard", b =>
-                {
-                    b.Property<int>("CardId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CVV")
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
-
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExpiryDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameOnCard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CardId");
-
-                    b.ToTable("SavedCard");
                 });
 
             modelBuilder.Entity("Book_My_Table.Models.Restaurant", b =>
