@@ -28,7 +28,7 @@ namespace Book_My_Table.Models
         public string ExpiryDate { get; set; }
 
         [Required]
-        [StringLength(4)]
+        [StringLength(4, ErrorMessage = "Please enter a valid Name")]
         public string CVV { get; set; }
 
         [RegularExpression("^[A-Z]*[a-zA-Z\\s]*$",ErrorMessage = "Please enter a valid Name")]
