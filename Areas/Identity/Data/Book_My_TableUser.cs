@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,10 +12,12 @@ namespace Book_My_Table.Areas.Identity.Data
     public class Book_My_TableUser : IdentityUser
     {
         [PersonalData]
+        [RegularExpression("^[A-Z]*[a-zA-Z\\s]*$", ErrorMessage = "Please enter a valid Name")]
         [Column(TypeName = "nvarchar(100)")]
         public string FirstName { get; set; }
 
         [PersonalData]
+        [RegularExpression("^[A-Z]*[a-zA-Z\\s]*$", ErrorMessage = "Please enter a valid Name")]
         [Column(TypeName = "nvarchar(100)")]
         public string LastName { get; set; }
     }

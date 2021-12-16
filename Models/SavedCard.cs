@@ -17,6 +17,7 @@ namespace Book_My_Table.Models
         [Display(Name = "Card Number")]
         [CardValidate]
         [DataType(DataType.CreditCard)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Please enter a valid Card Number")]
         public string CardNumber { get; set; }
 
         [Required]
@@ -30,6 +31,7 @@ namespace Book_My_Table.Models
         [StringLength(4)]
         public string CVV { get; set; }
 
+        [RegularExpression("^[A-Z]*[a-zA-Z\\s]*$",ErrorMessage = "Please enter a valid Name")]
         [Required]
         [Display(Name = "Name on the card")]
         public string NameOnCard { get; set; }

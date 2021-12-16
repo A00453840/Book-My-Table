@@ -18,6 +18,7 @@ namespace Book_My_Table.Models
         public string CustomerId { get; set; }
 
         [Required]
+        [RegularExpression("^[A-Z]*[a-zA-Z\\s]*$", ErrorMessage = "Please enter a valid Name")]
         [Display(Name = "Customer Name")]
         public string CustomerName { get; set; }
 
@@ -30,7 +31,7 @@ namespace Book_My_Table.Models
         public DateTime Time { get; set; }
 
         [Display(Name = "Number of Guests")]
-        [Range(1, 10, ErrorMessage = "Maximum of 10 guests allowed per booking")]
+        [Range(1, 10, ErrorMessage = "Minimum of 1 and maximum of 10 guests allowed per booking")]
         public int Noofpeople { get; set; }
 
         [Display(Name = "Contact Number")]
