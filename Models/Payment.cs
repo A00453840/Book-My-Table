@@ -15,7 +15,7 @@ namespace Book_My_Table.Models
         public string CustomerId { get; set; }
 
         [Range(10, 1000,
-         ErrorMessage = "Enter an amount between 20$ - 50$")]
+         ErrorMessage = "Enter an amount between 10$ - 1000$")]
         [Required]
         [DataType(DataType.Currency)]
         public float Amount { get; set; }

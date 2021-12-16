@@ -47,11 +47,13 @@ namespace Book_My_Table.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [RegularExpression("^[A-Z]*[a-zA-Z\\s]*$", ErrorMessage = "Please enter a valid Name")]
             [DataType(DataType.Text)]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
+            [RegularExpression("^[A-Z]*[a-zA-Z\\s]*$", ErrorMessage = "Please enter a valid Name")]
             [DataType(DataType.Text)]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
