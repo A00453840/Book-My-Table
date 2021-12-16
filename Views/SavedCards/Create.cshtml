@@ -1,13 +1,13 @@
 ﻿@model Book_My_Table.Models.SavedCard
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add a card";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Add a card</h1>
 
-<h4>SavedCard</h4>
+@*<h4>SavedCard</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,9 +16,9 @@
             <div class="form-group">
                 <label asp-for="CardType" class="control-label"></label><br />
                 @*<input type="radio" asp-for="CardType" class="form-control" />*@
-                Visa <input type="radio" name="CardType" value="Visa" />
-                Master Card <input type="radio" name="CardType" value="Master Card" />
-                Amex <input type="radio" name="CardType" value="Amex" />
+                <input asp-for="CardType" type="radio" name="CardType" value="Visa" /> Visa &emsp;
+                <input asp-for="CardType" type="radio" name="CardType" value="Master Card" /> Master Card &emsp;
+                <input asp-for="CardType" type="radio" name="CardType" value="Amex" /> Amex &emsp;&emsp;
                 <span asp-validation-for="CardType" class="text-danger"></span>
             </div>
             <div class="form-group">

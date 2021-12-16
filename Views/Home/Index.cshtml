@@ -3,10 +3,28 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to Book-My-Table</h1>
+    <h1 class="display-4">Welcome</h1>
     </br></br>
     @** <a asp-page="/Customers">Find restaurants nearby</a>*@
     @*<a href="@Url.Action("Index","Customers")">Customers</a>
         <a href="@Url.Action("Index","Bookings")">Bookings</a>*@
-    <h3> <a href="@Url.Action("Index","Restaurants")">FIND RESTAURANTS NEARBY</a> </h3>
+    @*<h3> <a href="@Url.Action("Index","Restaurants")">FIND RESTAURANTS NEARBY</a> </h3>*@
+    <h3> <a href="@Url.Action("Index","Restaurants")"><u><b>FIND RESTAURANTS NEARBY</b></u></a> </h3>
+
+    <br /><br /><br />
+
+    <div class="row">
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+        <div class="column">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6yxBEuimh7T-T9SEiUp8MO8x93WhToomjUg&usqp=CAU" alt="Book" style="width:100%">
+        </div>
+        <p>&emsp;&emsp;&emsp;</p>
+        <div class="column">
+            <h1><b> MY </b></h1>
+        </div>
+        <p>&emsp;&emsp;&emsp;</p>
+        <div class="column">
+            <img src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c282.png" alt="Table" style="width:100%">
+        </div>
+    </div>
 </div>

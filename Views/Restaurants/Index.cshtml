@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Book_My_Table.Models.Restaurant>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Restaurants";
 }
 
-<h1>Restaurants</h1>
+<h1>Restaurants</h1><br/><br />
 
 @*<p>
         <a asp-action="Create">Create New</a>
@@ -13,7 +13,7 @@
     <div class="form-actions no-color">
         <p>
             Enter your location: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
+            <b><input type="submit" value="Search" class="btn btn-default" /></b>&emsp;|&emsp;
             <a asp-action="Index">Back to Full List</a>
         </p>
         @*@section Scripts

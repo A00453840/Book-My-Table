@@ -15,9 +15,11 @@ namespace Book_My_Table.Models
         public string Address { get; set; }
         public string Phone { get; set; }
 
+        [Display(Name = "Opening Time")]
         [DataType(DataType.Time)]
         public DateTime OpeningTime { get; set; }
 
+        [Display(Name = "Closing Time")]
         [DataType(DataType.Time)]
         public DateTime ClosingTime { get; set; }
        // public virtual Meal Meal { get; set; }

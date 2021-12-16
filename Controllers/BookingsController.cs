@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Book_My_Table.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Book_My_Table.Controllers
 {
@@ -64,6 +65,16 @@ namespace Book_My_Table.Controllers
             return View();
         }
 
+        public class DateValidateAttribute : ValidationAttribute
+        {
+            public override bool IsValid(object value)
+            {
+                DateTime d = Convert.ToDateTime(value);
+                return d >= DateTime.Now;
+
+            }
+        }
+
         // POST: Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -76,7 +87,7 @@ namespace Book_My_Table.Controllers
             {
                 var user = await _userManager.GetUserAsync(User);
                 booking.CustomerId = user.Id;
-
+                booking.Status = "Payment pending";
                 booking.RestaurantId = id;
                 _context.Add(booking);
                 await _context.SaveChangesAsync();

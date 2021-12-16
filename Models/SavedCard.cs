@@ -28,7 +28,7 @@ namespace Book_My_Table.Models
 
         [Required]
         [StringLength(4)]
-        public String CVV { get; set; }
+        public string CVV { get; set; }
 
         [Required]
         [Display(Name = "Name on the card")]
@@ -36,7 +36,7 @@ namespace Book_My_Table.Models
 
         
         public string CustomerId { get; set; }
-
+        [Required]
         public string CardType { get; set; }
 
        // public ICollection<Booking> Bookings { get; set; }

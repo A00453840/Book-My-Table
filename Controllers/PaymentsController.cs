@@ -78,6 +78,7 @@ namespace Book_My_Table.Controllers
                 payment.PaymentType = "Credit Card";
                 _context.Add(payment);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Payment Success!";
                 return RedirectToAction(nameof(Index));
             }
             return View(payment);

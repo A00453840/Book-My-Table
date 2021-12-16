@@ -4,14 +4,16 @@ using Book_My_Table.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Book_My_Table.Migrations
 {
     [DbContext(typeof(CustomerReg))]
-    partial class CustomerRegModelSnapshot : ModelSnapshot
+    [Migration("20211215110319_Migration10C")]
+    partial class Migration10C
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,14 +29,12 @@ namespace Book_My_Table.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContactNo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
@@ -49,6 +49,9 @@ namespace Book_My_Table.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SavedCardCardId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
@@ -56,6 +59,8 @@ namespace Book_My_Table.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("BookingId");
+
+                    b.HasIndex("SavedCardCardId");
 
                     b.ToTable("Booking");
                 });
@@ -172,7 +177,6 @@ namespace Book_My_Table.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CardType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerId")
@@ -191,6 +195,13 @@ namespace Book_My_Table.Migrations
                     b.ToTable("SavedCard");
                 });
 
+            modelBuilder.Entity("Book_My_Table.Models.Booking", b =>
+                {
+                    b.HasOne("Book_My_Table.Models.SavedCard", null)
+                        .WithMany("Bookings")
+                        .HasForeignKey("SavedCardCardId");
+                });
+
             modelBuilder.Entity("Book_My_Table.Models.Restaurant", b =>
                 {
                     b.HasOne("Book_My_Table.Models.Booking", null)
@@ -201,6 +212,11 @@ namespace Book_My_Table.Migrations
             modelBuilder.Entity("Book_My_Table.Models.Booking", b =>
                 {
                     b.Navigation("Restaurants");
+                });
+
+            modelBuilder.Entity("Book_My_Table.Models.SavedCard", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }
